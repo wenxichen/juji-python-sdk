@@ -17,22 +17,28 @@ class MessageHandler:
             if "chat" in parsed["data"]:
                 chat_data = parsed["data"]["chat"]
                 if "role" in chat_data and chat_data["role"] == "rep":
-                    if chat_data["type"] == "normal":
-                        self.message_queue.put(chat_data["text"])
-                        # Execute any registered callbacks
-                        for callback in self.callbacks:
-                            callback(chat_data["text"])
-                    elif chat_data["type"] == "user-joined":
+                    self.message_queue.put(chat_data)
+                    # Execute any registered callbacks
+                    for callback in self.callbacks:
+                        callback(chat_data)
+
+                    if chat_data["type"] == "user-joined":
                         print("=== Welcome to Juji Bot ===")
                         
     def add_callback(self, callback: Callable[[str], None]):
         """Add a callback function to be called when messages are received"""
         self.callbacks.append(callback)
 
-    def get_message(self, timeout: Optional[float] = None) -> Optional[str]:
-        """Get the next message from the queue"""
+    def get_messages(self, timeout: Optional[float] = None) -> Optional[List[str]]:
+        """Get the text messages from the queue until endOfMessage is True"""
         try:
-            return self.message_queue.get(timeout=timeout)
+            messages = []
+            message = self.message_queue.get(timeout=timeout)
+            while message and not message["endOfMessage"]:
+                if message["type"] == "normal":
+                    messages.append(message["text"])
+                message = self.message_queue.get(timeout=timeout)
+            return messages
         except:
             return None
 
@@ -75,8 +81,14 @@ class Participation:
         self.ws = ws
         self.wst = wst
         self.message_handler = message_handler
+
+    def get_messages(self) -> Optional[List[str]]:
+        """
+        Get the text messages from the queue until endOfMessage is True
+        """
+        return self.message_handler.get_messages()
     
-    def send_chat_msg(self, user_msg: str) -> Optional[str]:
+    def send_chat_msg(self, user_msg: str) -> Optional[List[str]]:
         """
         Send a message to the chatbot and get the response.
         
@@ -84,7 +96,7 @@ class Participation:
             user_msg (str): Message to send to the chatbot
             
         Returns:
-            Optional[str]: The chatbot's response, or None if no response received
+            Optional[List[str]]: The chatbot's response, or None if no response received
         """
         self.ws.send("""
         mutation {{
@@ -99,7 +111,7 @@ class Participation:
         """.format(self.participation_id, user_msg))
         
         # Wait for and return the response
-        return self.message_handler.get_message(timeout=10)
+        return self.message_handler.get_messages(timeout=10)
     
     def add_message_callback(self, callback: Callable[[str], None]):
         """
@@ -181,6 +193,7 @@ class Chatbot:
                     role
                     text
                     type
+                    endOfMessage
                     display{{
                         data{{
                             questions{{
