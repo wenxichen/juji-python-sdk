@@ -86,7 +86,7 @@ class Participation:
         """
         Get the text messages from the queue until endOfMessage is True
         """
-        return self.message_handler.get_messages()
+        return self.message_handler.get_messages(timeout=10)
     
     def send_chat_msg(self, user_msg: str) -> Optional[List[str]]:
         """

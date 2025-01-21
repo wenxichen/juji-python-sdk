@@ -31,7 +31,7 @@ participation = chatbot.start_chat()
 ########################################################
 # Synchronous message handling
 ########################################################
-time.sleep(10)
+# time.sleep(10)
 
 messages = participation.get_messages()
 print(messages)
