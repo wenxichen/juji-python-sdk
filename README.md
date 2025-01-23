@@ -1,6 +1,6 @@
 # Juji Python SDK
 
-This is a Python SDK for Juji.
+This is a Python SDK for [Juji Chatbot](https://juji.io), using the [Juji API](https://juji.io/docs/api).
 
 ## Installation
 
