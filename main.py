@@ -1,8 +1,8 @@
 from juji_python_sdk import Chatbot
 import time
 
-# chatbot = Chatbot("https://juji.ai/pre-chat/67782695-4bee-448a-9dad-964fabe82a41")
-chatbot = Chatbot("https://test.juji-inc.com/pre-chat/6784c7cc-d67d-478f-b5a7-14b3b4d8d7bf")
+# Create a chatbot instance
+chatbot = Chatbot("<chatbot_url>")
 
 participation = chatbot.start_chat()
 
@@ -31,7 +31,6 @@ participation = chatbot.start_chat()
 ########################################################
 # Synchronous message handling
 ########################################################
-# time.sleep(10)
 
 messages = participation.get_messages()
 print(messages)
