@@ -1,8 +1,11 @@
 from juji_python_sdk import Chatbot
 import time
+import dotenv   
+import os
+dotenv.load_dotenv()
 
 # Create a chatbot instance
-chatbot = Chatbot("<chatbot_url>")
+chatbot = Chatbot(os.getenv("CHATBOT_URL"))
 
 participation = chatbot.start_chat()
 
