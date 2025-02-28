@@ -5,3 +5,6 @@ __pycache__/
 # Ignore build files
 build/
 dist/
+
+# Ignore the .env file
+.env
