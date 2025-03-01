@@ -1,6 +1,6 @@
 # Juji Python SDK
 
-This is a Python SDK for [Juji Chatbot](https://juji.io), using the [Juji API](https://juji.io/docs/api).
+This is a Python SDK for [Juji Chatbot](https://juji.io) and [Juji Design](https://juji.ai/rep), using the [Juji API](https://juji.io/docs/api).
 
 ## Installation
 
@@ -9,7 +9,9 @@ pip install juji-python-sdk
 ```
 
 ## Usage
+The Chatbot and Design SDKs are in the same package.
 
+### Chatbot
 ```python
 from juji_python_sdk import Chatbot
 
@@ -18,7 +20,7 @@ chatbot = Chatbot("<chatbot_url>")
 participation = chatbot.start_chat()
 ```
 
-### Asynchronous message handling
+#### Asynchronous message handling
 
 ```python
 def handle_message(message: dict):
@@ -40,7 +42,7 @@ print("You: Bye!")
 participation.end()
 ```
 
-### Synchronous message handling
+#### Synchronous message handling
 
 ```python
 messages = participation.get_messages()
@@ -50,3 +52,20 @@ print("You: Hello, how are you?")
 messages = participation.send_chat_msg("Hello, how are you?")
 print(messages) 
 ```
+
+### Design
+
+```python
+from juji_python_sdk import JujiDesign
+
+design = JujiDesign("<juji_api_key>", "<juji_platform_url>")
+
+brands = design.get_brands()
+
+browser_key = uuid.uuid4()
+design.add_faq(["Where can I buy some tomatoes?"], 
+               ["We have the best tomatoes in the world!"], 
+               "<engagement_id>", 
+               browser_key)
+``` 
+Check out the [design_example.py](design_example.py) for a complete example.

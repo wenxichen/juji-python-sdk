@@ -1,8 +1,8 @@
-from juji_python_sdk.design import JujiDesign
+# from juji_python_sdk.design import JujiDesign
 import dotenv
 import os
 
-# from juji_python_sdk import design
+from juji_python_sdk import JujiDesign
 
 dotenv.load_dotenv()
 
@@ -25,8 +25,8 @@ brands = design.get_brands()
 print(brands)
 
 # Add a FAQ to the chatbot
-resp = design.add_faq(["Where can I buy some potatoes?"], 
-                      ["We have the best potatoes in the world!"], 
+resp = design.add_faq(["Where can I buy some tomatoes?"], 
+                      ["We have the best tomatoes in the world!"], 
                       engagement_id, 
                       browser_key)
 print(resp)
