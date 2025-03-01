@@ -1,6 +1,6 @@
-# import juji_python_sdk
-
 from juji_python_sdk import design
+
+# from juji_python_sdk import design
 
 engagement_id = "67bac9c2-71eb-4a73-ae2e-3135f75ac3df"
 
