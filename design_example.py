@@ -1,6 +1,18 @@
-from juji_python_sdk import design
+from juji_python_sdk.design import JujiDesign
+import dotenv
+import os
 
 # from juji_python_sdk import design
+
+dotenv.load_dotenv()
+
+JUJI_PLATFORM_URL = os.getenv("JUJI_PLATFORM_URL", "https://juji.ai")
+
+JUJI_API_KEY = os.getenv("JUJI_API_KEY", "your juji api key")
+if JUJI_API_KEY == "your juji api key":
+    raise ValueError("JUJI_API_KEY is not set. Please set it in your environment variables.")
+
+design = JujiDesign(JUJI_API_KEY, JUJI_PLATFORM_URL)
 
 engagement_id = "67bac9c2-71eb-4a73-ae2e-3135f75ac3df"
 
@@ -13,9 +25,8 @@ brands = design.get_brands()
 print(brands)
 
 # Add a FAQ to the chatbot
-resp = design.add_faq(["Where can I find some ice cream?",
-                       "Where can I buy some ice cream?"], 
-                      ["We have the best ice cream in the world!"], 
+resp = design.add_faq(["Where can I buy some potatoes?"], 
+                      ["We have the best potatoes in the world!"], 
                       engagement_id, 
                       browser_key)
 print(resp)
