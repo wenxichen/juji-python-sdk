@@ -39,5 +39,5 @@ messages = participation.get_messages()
 print(messages)
 
 print("You: Hello, how are you?")
-messages = participation.send_chat_msg("Hello, how are you?")
+messages = participation.send_chat_msg("Hello, how are you?", response_timeout=20)
 print(messages) 

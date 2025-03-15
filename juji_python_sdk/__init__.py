@@ -1,2 +1,2 @@
-from .chatbot import Chatbot
+from .chatbot import Chatbot, Participation
 from .design import JujiDesign

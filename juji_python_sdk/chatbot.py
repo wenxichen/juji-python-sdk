@@ -82,13 +82,13 @@ class Participation:
         self.wst = wst
         self.message_handler = message_handler
 
-    def get_messages(self) -> Optional[List[str]]:
+    def get_messages(self, response_timeout: Optional[float] = None) -> Optional[List[str]]:
         """
         Get the text messages from the queue until endOfMessage is True
         """
-        return self.message_handler.get_messages(timeout=10)
+        return self.message_handler.get_messages(timeout=response_timeout)
     
-    def send_chat_msg(self, user_msg: str) -> Optional[List[str]]:
+    def send_chat_msg(self, user_msg: str, response_timeout: Optional[float] = None) -> Optional[List[str]]:
         """
         Send a message to the chatbot and get the response.
         
@@ -111,7 +111,7 @@ class Participation:
         """.format(self.participation_id, user_msg))
         
         # Wait for and return the response
-        return self.message_handler.get_messages(timeout=10)
+        return self.message_handler.get_messages(timeout=response_timeout)
     
     def add_message_callback(self, callback: Callable[[str], None]):
         """

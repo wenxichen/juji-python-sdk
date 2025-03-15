@@ -1,6 +1,6 @@
 [project]
 name = "juji-python-sdk"
-version = "0.2.2"
+version = "0.2.4"
 description = "Juji Python SDK"
 authors = [
     {name = "Wenxi Chen",email = "wchen@juji-inc.com"}
